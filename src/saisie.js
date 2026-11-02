@@ -1,4 +1,4 @@
-// Adaptateur de saisie — FOURNI par les coachs : lisez-le, ne le modifiez pas.
+  // Adaptateur de saisie — FOURNI par les coachs : lisez-le, ne le modifiez pas.
 // Un terminal ne dispose pas du prompt() du navigateur. Ce fichier utilise le module
 // natif readline de Node.js pour poser une question et attendre la réponse au clavier.
 import { createInterface } from 'node:readline';
