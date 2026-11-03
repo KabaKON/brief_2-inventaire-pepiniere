@@ -4,7 +4,7 @@
 
 | Tâche | Prévu | Fait le | Preuve |
 | --- | --- | --- | --- |
-| Poste et dépôt prêts ; besoin compris ; documents commencés | | | |
+| Poste et dépôt prêts ; besoin compris ; documents commencés |jour 1 |jour 2 |commit<< Poste prêt, contexte, dictionnaire, fiche agronomique et journal de recherche>> |
 | Fiche 2 : lire et écrire le JSON | | | |
 | Fiche 3 : ajouter et lister ; choix 1 et 2 ; erreurs | | | |
 | Fiche 4 : rechercher et trier ; choix 3 et 4 | | | |
