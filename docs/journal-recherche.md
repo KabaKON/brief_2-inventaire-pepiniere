@@ -4,6 +4,9 @@
 
 | Ce que je cherchais | Où | Ce que j'ai compris | Utilisé dans |
 | --- | --- | --- | --- |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
+| function OuvrirSaisie | | | |
+| async function demander | | | |
+| function FermerSaisie | | | |
+|function versNombre   |
+|function est DateValide |
+|
