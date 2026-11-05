@@ -3,8 +3,8 @@
 > Projet individuel du SAS DFS, brief 2 (sujet : [SUJET.md](SUJET.md)). Remplacez chaque ✏️ par votre texte, puis supprimez cette ligne.
 
 ## Contexte
+ Cet outil est destiné au gérant d'une pépinière, qui suit ses jeunes plants au quotidien. Il a besoin de savoir vite ce qu'il a en stock et ce manque. Il savait le code, un nom, un groupe botamique, un nombre de plants et une date. Le programme lui affiche l'inventaire, les résultats de recherche et de tri, et une synthèse. L' outil ne gère ni les prix, ni les ventes, ni les décisions de production.
 
-✏️ *En cinq à huit phrases : qui utilise l'outil (son métier, son geste professionnel), son besoin, ce qu'il saisit, ce que le programme lui affiche, ce que l'outil ne fait pas.*
 
 ## Prérequis et lancement
 
@@ -23,12 +23,12 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ✏️ *Cochez seulement ce qui marche : `- [x]`.*
 
-- [ ] Données lues et enregistrées dans `donnees/plants.json`
-- [ ] Ajouter un plant, saisies invalides refusées sans arrêter le programme
-- [ ] Lister l'inventaire, message si l'inventaire est vide
-- [ ] Rechercher par code ou par nom ; filtrer par groupe botanique
-- [ ] Trier par nombre de plants
-- [ ] Synthèse : stock total, espèces et plants par groupe, espèce la plus abondante, stocks faibles (≤ 10 plants)
+- [X] Données lues et enregistrées dans `donnees/plants.json`
+- [X] Ajouter un plant, saisies invalides refusées sans arrêter le programme
+- [X] Lister l'inventaire, message si l'inventaire est vide
+- [X] Rechercher par code ou par nom ; filtrer par groupe botanique
+- [X] Trier par nombre de plants
+- [X] Synthèse : stock total, espèces et plants par groupe, espèce la plus abondante, stocks faibles (≤ 10 plants)
 - [ ] Bonus : supprimer et modifier un plant (choix 6 et 7)
 - [ ] Bonus : tri décroissant, groupe le plus fourni
 
@@ -46,4 +46,4 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ## Auteur
 
-✏️ *Prénom NOM, compte GitHub. Entraide : avec qui, sur quoi.*
+✏️ *Prénom KABA , KabaKON. Entraide : Kamagate Abdallah et Anglovia konan, compréhesnion de l'exercice et l'app.js

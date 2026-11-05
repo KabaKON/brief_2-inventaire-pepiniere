@@ -36,7 +36,7 @@ export async function demander(question) {
 
 // Ferme la saisie. app.js l'appelle une fois, avant de quitter.
 export function fermerSaisie() {
-  if (!fermee) {
+  if ( clavier && !fermee) {
     clavier.close();
   }
 }

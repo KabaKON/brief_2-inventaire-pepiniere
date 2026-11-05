@@ -26,7 +26,7 @@ Dialogue **imposé** :
 
 ```text
 --- Rechercher ---
-1. Par code
+1. Par code 
 2. Par nom commun
 3. Les espèces d'un groupe botanique
 Votre choix : 1

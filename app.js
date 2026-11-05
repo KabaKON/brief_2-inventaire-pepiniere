@@ -10,13 +10,13 @@ import { SEUIL_STOCK_FAIBLE, especeLaPlusAbondante, stocksFaibles, syntheseParGr
 
 const FICHIER_DONNEES = 'donnees/plants.json';
 //chargerJson(FICHIER_DONNEES)
-let Plant = [];
+let inventaire = [];
 
 function afficherAcceuil() {
   console.log("=========================================================");
-console.log("           INVENTAIRE DE LA PÉPINIÈRE                     ");
-console.log("           Pépinière pédagogique");
-console.log("===========================================================");
+console.log("   INVENTAIRE DE LA PÉPINIÈRE");
+console.log("   Pépinière pédagogique");
+  console.log("=========================================================");
 }
 
 
@@ -27,17 +27,17 @@ async function chargerInventaire(){
       throw new Error('le fichier ne contient pas de tableau');
     }
 
-  plants = donnees;
-  console.log(`${especes.length}) espèces(s) chargée(s) depuis ${FICHIER_DONNEES}.`);
+  inventaire = donnees;
+  console.log(`${inventaire.length}) espèces(s) chargée(s) depuis ${FICHIER_DONNEES}.`);
   } catch(erreur) {
-    plants = [];
+    inventaire = [];
     console.log("Impossible de lire `${FICHIER_DONNEES} : ${erreur.message}`.L'inventaire démarre vide.");
   }
 }
 
 function afficherMenu() {
   console.log('');
-console.log("--------------------- MENU ---------------------");
+console.log("--------------------- MENU ------------------------");
 console.log("1. Ajouter un plant");
 console.log("2. Lister l'inventaire");
 console.log("3. Rechercher (code, nom, groupe)");
@@ -49,11 +49,11 @@ console.log("0. Quitter");
 
 // choix 1
 
-async function ajouterPla(){
-  console.log("---- Ajouter un plant ----");
+async function ajouterPlants(){
+  console.log("--- Ajouter un plant ---");
 const id = await demander("Code du plant (ex. N11) : ");
 if ( id === null) return;
-const NomCommun = await demander("Nom commun (ex. papayer) : ");
+const nomCommun = await demander("Nom commun (ex. papayer) : ");
 if (nomCommun === null) return;
 const groupe = await demander("Groupe botanique (angiosperme ou gymnosperme) : ");
 if (groupe === null) return;
@@ -66,56 +66,59 @@ const saisie = {
   id: id.toUppercase(),
   nomCommun: nomCommun.toLowercase(),
   groupe: groupe.toLowercase(),
+  nombrePlants: nombrePlants,
+  dateReleve: dateReleve,
 };
 
-const erreurs = ajouterPlant(plants, saisie);
+const erreurs = ajouterPlant(inventaire, saisie);
 if (erreurs.length > 0){
   console.log("Ajout refusé : ");
   for (const erreur of erreurs) {
-    console.log(` ${erreur}`);
+    console.log(`${erreur}`);
   }
-  console.log(`L'inventaire compte toujours) ${plants.length}) plant(s).`);
+  console.log(`L'inventaire compte toujours ${inventaire.length}plant(s).`);
   return
 }
-await enregistrerJson(FICHIER_DONNEES, enregistrements) 
-  console.log(`Plants ${saisie.id} ajoutée. L'inventaire compte ${plants.length} plant(s).`);
+await enregistrerJson(FICHIER_DONNEES, inventaire) 
+  console.log(`Plant ${id} ajouté. L'inventaire compte ${plants.length} plant(s).`);
 }
 // choix 2
 
 function lister(){
-  console.log()
+  console.log(`--- Inventaire(${inventaire.length} espèces(s))---`);
+  console.log(listerPlants(inventaire))
 }
 
 // choix 3
 
-async function rechercher(plants) {
+async function rechercher() {
   console.log('--- Rechercher ---');
-  console.log('1.Par code');
-  console.log('2.Par nom commun' )
-  console.log("3.Les espèces d'un groupe botanique")
-  const souschoix = await demander (' Votre choix : ');
+  console.log('1. Par code');
+  console.log('2. Par nom commun' )
+  console.log("3. Les espèces d'un groupe botanique")
+  const souschoix = await demander ('Votre choix : ');
   if (souschoix === null)
     return;
   if (souschoix === '1') {
     const reponse = await demander('Code : ');
     if (reponse === null) return;
     const id = reponse.toUpperCase();
-    const plant = trouverParId(plants, id);
+    const plant = trouverParId(inventaire, id);
     console.log(plant === undefined ? ` Plant ${id} introuvable.` : formaterPlant(plant));
   }else if (souschoix === '2') {
-    const reponse = await demander('nom commun: ');
+    const reponse = await demander('Nom ou partie du nom: ');
     if (reponse === null) return;
     const nomCommun = reponse.toLowerCase();
-    const recherche = rechercherParNom (plants, texte);
+    const recherche = rechercherParNom (inventaire, nomCommun);
     console.log(`${recherche.length} plant(s) par nomCommun${nomCommun} :`);
     console.log(listerPlants(recherche));
   }else if (souschoix === '3') {
-    const reponse = await demander('les espèces de groupe botamique');
-    if (reponse === null) return;
+    const saisie = await demander(` Groupe ${GROUPES.join(' ou ')} : `);
+    if (saisie=== null) return;
     const groupe = reponse.toLowerCase();
-    const trouvées = filtrerParGroupe(plants, groupe);
-    console.log(`${trouvées.length} plant(s) par groupe ${groupe} :`);
-    console.log(listerPlants(groupe));
+    const trouvees = filtrerParGroupe(inventaire, groupe);
+    console.log(`${trouvees.length} plant(s) par groupe ${groupe} :`);
+    console.log(listerPlants(trouvees));
   } else {
     console.log('Choix inconnu : retour au menu.');
 
@@ -124,232 +127,99 @@ async function rechercher(plants) {
 }
  // choix 4
   async function trier() {
-console.log(' --- Trier --- ');
-console.log('1. Par nombre de plants croissant')
-const souschoix = await demander (' Votre choix : ');
+console.log('--- Trier ---');
+console.log('1. Par nombre de plants croissant');
+const souschoix = await demander ('Votre choix : ');
   if (souschoix === null) return;
 
-  if (souschoix === '1'); {
-    console.log(listerPlants({trierParNombrePlants}));
+  if (souschoix === '1') {
+    console.log(listerPlants(trierParNombrePlants(inventaire)));
   } else {
     console.log('Choix inconnu : retour au menu.');
   }
 
+}
+
+// choix 5
+function synthese () {
+  console.log(" --- Synthèse de l'inventaire ---");
+  const total = totalPlants(inventaire);
+  console.log(`Nombre d'espèces : ${inventaire.length}`);
+  console.log(`Stock total : ${total} plants`);
+  console.log("Par groupe botamique :");
+  const synthese = syntheseParGroupe(inventaire);
+  for (const [groupe, infos] of Object.entries(synthese)) {
+    console.log(`${groupe} : ${infos.especes} espèce(s), ${infos.plants} plants`);
   }
+
+
+  const abondante = 
+  especeLaPlusAbondante(inventaire);
+  if (abondante) {
+    console.log(`Espèce la plus abondante : ${formaterPlant(abondante)}`);
+
+  }else {
+    console.log("Espèce la plus abondante : aucune donnée");
+  }
+const faibles = stocksFaibles(inventaire, SEUIL_STOCK_FAIBLE);
+console.log(`Stocks faibles ( <= ${SEUIL_STOCK_FAIBLE} plants : ${faibles.length}.)`);
+for (const plant of faibles) {
+  console.log(`  ${formaterPlant(plant)}`);
   
+}
+console.log("Rappel : le seuil de 10 plants est un répère pédagogique de suivi, pas une recommandation de production.");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-listerPlants
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const choix = await demander('Votre choix : '); 
-
+}
 
 async function main() {
   ouvrirSaisie();
-  console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
+  afficherAcceuil(); 
+  await chargerInventaire();
+
+let quitter = false;
+while (!quitter) {
+  afficherMenu ();
+  const choix = await demander ("Votre choix : ");
+  if(choix === null) {
+    quitter = true;
+    break;
+  }
+ try {
+    switch (choix){
+      case "1":
+        await ajouterPlants();
+         break;
+         case "2":
+          await lister();
+          break;
+          case "3":
+            await rechercher();
+            break;
+            case "4":
+              await trier();
+            break;
+            case "5":
+              await synthese();
+              break;
+              case"0":
+              quitter = true;
+              break;
+              default:
+                console.log(`Choix incoonu : << ${choix}. Tapez un chiffre du menu.`);
+                }
+                } catch(erreur) {
+     if(erreur.message.startsWith("TODO")) {
+     console.log(`${erreur.message}`);
+                } else {
+                  console.log(`Erreur inattendue : A completer ${erreur.message}`);
+                }
+              }
+            }
+          }
+console.log("Au revoir !");
+
+
   fermerSaisie();
-}
+  
 
 main();
