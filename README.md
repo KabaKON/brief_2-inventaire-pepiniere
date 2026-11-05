@@ -46,4 +46,4 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ## Auteur
 
-✏️ *Prénom KABA , KabaKON. Entraide : Kamagate Abdallah et Anglovia konan, compréhesnion de l'exercice et l'app.js
+✏️ *Prénom KABA , KabaKON. Entraide : Kamagate Abdallah et Anglovia konan. compréhesnion de l'exercice et l'app.js
