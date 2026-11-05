@@ -9,4 +9,4 @@
 | function FermerSaisie |src/saisie.js |elle éteint le clavier. On l'appelle une seule fois, avant de quitter |app.js |
 |function versNombre   |src/outils.js| elle transforme un texte en nombre. Elle renvoie NaN si le texte est vide ou n'est pas un nombre| src/registre.js
 |function est DateValide | src/outils.js elle dit si le texte est une vraie date au format AAAA/MM/JJ|src/registre.js
-|
+|Q
