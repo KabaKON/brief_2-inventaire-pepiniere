@@ -9,12 +9,14 @@ stock total = 222 + 18 = 240 plants et espèce = 10
 10 ou moins : N09;pin; plants = 8 et N10; cycas; plants= 10
 
 
+
 **Essais dans le menu** : un ajout valide (encore là après redémarrage), chaque règle refusée, une recherche introuvable, chaque tri, la synthèse, un choix inconnu.
 
 | Action | Attendu | Obtenu | Testeur |
 | --- | --- | --- | --- |
-| ✏️ | | | |
-| ✏️ | | | |
+| lister inventaire |liste de tous les plants |inventaire complet | BOBGE arnaud Gildas
+| synthèse de quantité | la quantité totale des espèces et des plants(groupe), et le stock faible et la plus abondante|angiosperme : 8 espèces, 222 plants
+gymnosperme: 2 espèces et 18 plants; stock faible(8), stock abondant(50) | resultat obtenu| Konan anglovia
 | ✏️ | | | |
 | ✏️ | | | |
 | ✏️ | | | |
