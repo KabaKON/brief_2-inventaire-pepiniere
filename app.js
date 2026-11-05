@@ -153,8 +153,7 @@ function synthese () {
   }
 
 
-  const abondante = 
-  especeLaPlusAbondante(inventaire);
+  const abondante = especeLaPlusAbondante(inventaire);
   if (abondante) {
     console.log(`Espèce la plus abondante : ${formaterPlant(abondante)}`);
 
